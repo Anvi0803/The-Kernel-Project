@@ -1,16 +1,16 @@
 ASM=nasm
+GCC=gcc
 
-SRC=src
+KER=kernel
 BUILD=build
 BOOT=boot
 
 run: build
-	qemu-system-i386 $(BUILD)/boot.img
+	qemu-system-i386 -fda $(BUILD)/boot.img
 
-build: comp
+build: compile
 	cp $(BUILD)/boot.bin $(BUILD)/boot.img
 	truncate -s 1400k $(BUILD)/boot.img
 
-comp: $(BOOT)/basic_boot.asm
-	$(ASM) $(BOOT)/basic_boot.asm -f bin -o $(BUILD)/boot.bin
-	
+compile: $(BOOT)/boot.asm
+	$(ASM) $(BOOT)/boot.asm -f bin -o $(BUILD)/boot.bin
