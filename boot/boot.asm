@@ -46,13 +46,16 @@ print:
 .print_end:
     pop ax
     pop si
-    call halt
+    ret
 
 
 
 main:
     mov si, msg
     call print 
+    mov si, new_msg
+    call print
+    call halt
 
 
 
@@ -63,7 +66,10 @@ halt:
 
 
 msg:
-    db "Hello World!", 0
+    db "Hello World!", ENDL, 0
+
+new_msg:
+    db "Hello World! 2", ENDL, 0
 
 times 510-($-$$) db 0   ; pad with zeros upto 510 bytes
 dw 0xaa55   ; The boot signature (or Magic Number)
